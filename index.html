@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Baby Dates</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>W.E.B. Dubois Virtual Exhibit</title>
+  </head>
+  <body>
+    <h1>Future Dates with Bae</h1>
+    <br>
+    <button type="button" onclick="DrawCirles(data)" name="button">Moods</button>
+    <button type="button" name="button">Enviorment</button>
+      <button type="button" name="button">Time</button>
+    <h3>Our List:</h3>
+
+
+    <div class="" id='our_dates'>
+
+    </div>
+
+    <br>
+    <br>
+    <!-- <img src="Images/OurDates.png" alt=""> -->
+
+
+    <script type="text/javascript">
+
+      // Date Idea, Mood, Enviornment, Time of Date
+
+      var our_dates= [{"Date Idea":"Movie Theater","Mood":"Let's Go Out","Enviornment":["Indoor"],"Time of Day":["Day","Night"]},
+                      {"Date Idea":"Gala Party","Mood":"Let's Plan It","Enviornment":["Indoor"],"Time of Day":["Night"]},
+                      {"Date Idea":"Roof Top Bar Party","Mood":"Let's Plan It","Enviornment":["Indoor","Outdoor"],"Time of Day":["Night"]},
+                      {"Date Idea":"Boat Cruise","Mood":"Let's Plan It","Enviornment":["Outdoor"],"Time of Day":["Day","Night"]},
+                      {"Date Idea":"Airbnb on Coast","Mood":"Let's Plan It","Enviornment":["Indoor","Outdoor"],"Time of Day":["Day","Night"]},
+                      {"Date Idea":"Boat Cruise","Mood":"Let's Plan It","Enviornment":["Outdoor"],"Time of Day":["Day"]},
+                      {"Date Idea":"Japanese Garden","Mood":"Let's Go Out","Enviornment":["Outdoor"],"Time of Day":["Day"]},
+                      {"Date Idea":"Go Karts","Mood":"Let's Go Out","Enviornment":["Outdoor"],"Time of Day":["Day"]},
+                      {"Date Idea":"Professionanl Sports Game","Mood":"Let's Go Out","Enviornment":["Outdoor"],"Time of Day":["Day"]},
+                      {"Date Idea":"Karaoke","Mood":"Let's Go Out","Enviornment":["Outdoor"],"Time of Day":["Night"]},
+                      {"Date Idea":"K-bbq: Beaverton","Mood":"Let's Go Out","Enviornment":["Indoor"],"Time of Day":["Day","Night"]},
+                      {"Date Idea":"Hiking","Mood":"Let's Go Out","Enviornment":["Outdoor"],"Time of Day":["Day"]},
+                      {"Date Idea":"Obama Nature Show & Homemade Pizza","Mood":"Let's Stay In","Enviornment":["Indoor"],"Time of Day":["Day","Night"]}
+
+    ];
+
+
+    var width=600;
+    var height=600;
+
+    var svg = d3.select('body').append('svg').attr('width',width).attr('height',height).style('background-color','white');
+
+    // var text= svg.selectAll('text').data(our_dates).enter().append('text').text(function(d){return our_dates["Date Idea"];})
+
+    d3.select("#our_dates")
+    .selectAll("p")
+    .data(our_dates)
+    .enter()
+    .append("p")
+    .text((d,i) => our_dates[i]["Date Idea"])
+    .style('color','white');
+
+    //
+    // We need dictionary that gives frequency of mood
+    //   iterate through 'our_dates' and check mood to get frequency
+
+    var mood_frequency={"Let's Go Out":0,"Let's Plan It":0,"Let's Stay In":0};
+
+
+    console.log(mood_frequency)
+
+    for (i = 0; i < our_dates.length; i++) {
+
+      // console.log(i["Mood"])
+      // if(i["Mood"])
+      console.log(our_dates[i]["Mood"]);
+
+      if (our_dates[i]["Mood"]=="Let's Go Out") {
+
+        mood_frequency["Let's Go Out"]=mood_frequency["Let's Go Out"] +1
+
+          }
+
+      if (our_dates[i]["Mood"]=="Let's Plan It") {
+
+        mood_frequency["Let's Plan It"]=mood_frequency["Let's Plan It"] +1
+
+          }
+
+      if (our_dates[i]["Mood"]=="Let's Stay In") {
+
+        mood_frequency["Let's Stay In"]=mood_frequency["Let's Stay In"] +1
+
+          }
+
+    }
+
+    console.log("The Mood frequency for Let's go out is: " + mood_frequency["Let's Go Out"]);
+    console.log("The Mood frequency for Let's Stay In is: " + mood_frequency["Let's Stay In"]);
+    console.log("The Mood frequency for Let's Plan It is: " + mood_frequency["Let's Plan It"]);
+
+
+
+    var data = [20,40,60];
+
+    function DrawCirles(data){
+        var t=d3.transition().duration(1000);
+    var circle =svg.selectAll('circle').data(data);
+
+    circle.enter().append('circle').transition(t)
+    .attr('cx',function(d,i){return i *150 + 50})
+    .attr('cy',100)
+    .attr('r',function(d){return d;})
+    .style('fill','red');
+    }
+
+
+
+
+
+    // var circles=svg.selectAll('circle').data(mood_frequency);
+    //
+    //
+    // circles.enter().append('circle')
+    // .attr('cx',function(d,i){return i*50 +50;})
+    // .attr('cy',100)
+    // .attr('r',50)
+    // .style('fill',"red");
+
+    // svg.selectAll("p")
+    // .data(our_dates)
+    // .enter()
+    // .append("p")
+    // .text((d,i) => our_dates[i]["Date Idea"])
+    // .style('color','red');
+
+
+    </script>
+
+
+  </body>
+
+</html>
